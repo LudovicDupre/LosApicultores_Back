@@ -33,6 +33,7 @@ public class LosapicultoresBackContactApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        //generateDatas();
         //implBusiness.saveCategory(new Category(null, "famille"));
         // implBusiness.saveCategory(new Category(null, "ami"));
         //implBusiness.saveCategory(new Category(null, "travail"));

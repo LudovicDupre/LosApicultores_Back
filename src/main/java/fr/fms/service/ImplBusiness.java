@@ -44,4 +44,9 @@ public class ImplBusiness implements IBusiness {
         return categoryRepository.findById(id);
 
     }
+
+    @Override
+    public List<Contact> getContactByCategory(Long id) {
+        return contactRepository.findByCategoryId(id);
+    }
 }

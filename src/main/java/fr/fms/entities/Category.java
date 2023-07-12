@@ -9,14 +9,18 @@ import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
-@Data @NoArgsConstructor @AllArgsConstructor @ToString
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class Category {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
 
-    //@OneToMany(fetch = fetchType.EAGER, mappedBy = "category")
-    //private Collection<Contact> contacts;
+    @OneToMany(mappedBy = "category")
+    private Collection<Contact> contacts;
 }

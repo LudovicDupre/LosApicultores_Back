@@ -64,13 +64,6 @@ public class LosapicultoresBackContactApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        generatedUserRoles();
-    }
-}
-
-
-    @Override
-    public void run(String... args) throws Exception {
         //generateDatas();
         //implBusiness.saveCategory(new Category(null, "famille"));
         // implBusiness.saveCategory(new Category(null, "ami"));
@@ -78,6 +71,7 @@ public class LosapicultoresBackContactApplication implements CommandLineRunner {
         //implBusiness.saveCategory(new Category(null, "urgence"));
         //implBusiness.saveCategory(new Category(null, "default"));
         //generateDatas();
+       // generatedUserRoles();
     }
 
     private void generateDatas() {

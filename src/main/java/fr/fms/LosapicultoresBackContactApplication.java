@@ -18,6 +18,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 @SpringBootApplication
 public class LosapicultoresBackContactApplication implements CommandLineRunner {
@@ -72,6 +73,8 @@ public class LosapicultoresBackContactApplication implements CommandLineRunner {
         //implBusiness.saveCategory(new Category(null, "default"));
         //generateDatas();
        // generatedUserRoles();
+       Collection<Contact> list =  implBusiness.getContactByKeyword("mac");
+       System.out.println(list);
     }
 
     private void generateDatas() {

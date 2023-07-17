@@ -22,4 +22,6 @@ public interface IBusiness {
     Optional<Category> readCategory(Long id);
 
     List<Contact> getContactByCategory(Long id);
+
+    List<Contact> getContactByKeyword(String keyword);
 }

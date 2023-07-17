@@ -71,7 +71,7 @@ public class LosapicultoresBackContactApplication implements CommandLineRunner {
         //implBusiness.saveCategory(new Category(null, "urgence"));
         //implBusiness.saveCategory(new Category(null, "default"));
         //generateDatas();
-       // generatedUserRoles();
+        //generatedUserRoles();
     }
 
     private void generateDatas() {

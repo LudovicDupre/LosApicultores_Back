@@ -11,6 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Collection;
 import java.util.List;
 
 @Service @Transactional @Slf4j
@@ -54,6 +55,11 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public ResponseEntity<List<AppUser>> listUsers() {
         return ResponseEntity.ok().body(appUserRepository.findAll());
+    }
+
+    @Override
+    public Collection<AppRole> getAllRoles() {
+        return appRoleRepository.findAll();
     }
 
 

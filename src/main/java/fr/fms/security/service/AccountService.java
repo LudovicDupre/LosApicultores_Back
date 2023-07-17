@@ -5,6 +5,7 @@ import fr.fms.security.entities.AppUser;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
 @Service
 public interface AccountService {
@@ -14,4 +15,5 @@ public interface AccountService {
     public AppUser findUserByUsername(String username);
     ResponseEntity<List<AppUser>> listUsers();
 
+    Collection<AppRole> getAllRoles();
 }

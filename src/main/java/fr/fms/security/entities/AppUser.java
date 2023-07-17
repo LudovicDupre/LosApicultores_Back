@@ -23,7 +23,7 @@ public class AppUser {
     @JsonProperty(access=JsonProperty.Access.WRITE_ONLY)
     private String password;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     private Collection<AppRole> roles = new ArrayList<>();
 
 }

@@ -16,6 +16,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -98,5 +101,15 @@ public class LosapicultoresBackContactApplication implements CommandLineRunner {
         contactRepository.save(new Contact(null, "Garcia", "Carlos", "carlos.garcia@example.com", "60 Maple Avenue", "0123456789", FOLDER, travail));
         contactRepository.save(new Contact(null, "Robinson", "Emma", "emma.robinson@example.com", "70 Oak Drive", "0234567890", FOLDER, travail));
         contactRepository.save(new Contact(null, "Bell", "Oliver", "oliver.bell@example.com", "80 Elm Avenue", "0687654321", FOLDER, travail));
+    }
+
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**").allowedOrigins("http://localhost:4200");
+            }
+        };
     }
 }

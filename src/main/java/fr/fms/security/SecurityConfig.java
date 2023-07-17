@@ -23,6 +23,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -32,7 +35,7 @@ import java.util.Collection;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    UserDetailsServiceImpl userDetailsService;
+    UserDetailsService userDetailsService;
     @Autowired
     AccountServiceImpl accountServiceImpl;
 
@@ -51,7 +54,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         });
 
     }
-
+    @Bean
+    public UserDetailsService userDetailsService() {
+        return super.userDetailsService();
+    }
     @Bean
     public BCryptPasswordEncoder getBCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
@@ -61,6 +67,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests().anyRequest().permitAll();
         http.formLogin();
+        http.cors();
         http.addFilter(new JwtAuthenticationFilter(authenticationManagerBean()));
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
@@ -74,4 +81,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
+        return source;
+    }
 }

@@ -13,7 +13,7 @@ import java.util.Collection;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
+@ToString(exclude = "contacts")
 public class Category {
 
     @Id

@@ -31,7 +31,7 @@ public class ImplBusiness implements IBusiness {
 
     @Override
     public List<Contact> getContacts() {
-        return contactRepository.findAll();
+        return contactRepository.findAllByOrderByLastNameAsc();
     }
 
     @Override
@@ -48,5 +48,10 @@ public class ImplBusiness implements IBusiness {
     @Override
     public List<Contact> getContactByCategory(Long id) {
         return contactRepository.findByCategoryId(id);
+    }
+
+    @Override
+    public List<Contact> getContactByKeyword(String keyword) {
+        return contactRepository.findBylastNameContains(keyword);
     }
 }

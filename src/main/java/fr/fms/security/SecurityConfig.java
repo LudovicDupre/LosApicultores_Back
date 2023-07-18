@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 @Configuration
-@EnableWebSecurity
+//@EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired

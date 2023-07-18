@@ -80,6 +80,7 @@ public class LosapicultoresBackContactApplication implements CommandLineRunner {
 
     }
 
+
     private void generateDatas() {
         Category amis = categoryRepository.save(new Category(null, "Amis", null));
         Category divers = categoryRepository.save(new Category(null, "Divers", null));
@@ -103,13 +104,5 @@ public class LosapicultoresBackContactApplication implements CommandLineRunner {
         contactRepository.save(new Contact(null, "Bell", "Oliver", "oliver.bell@example.com", "80 Elm Avenue", "0687654321", FOLDER, travail));
     }
 
-    @Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurer() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**").allowedOrigins("http://localhost:4200");
-            }
-        };
-    }
+
 }

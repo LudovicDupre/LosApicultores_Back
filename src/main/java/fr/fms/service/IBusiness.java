@@ -24,4 +24,6 @@ public interface IBusiness {
     List<Contact> getContactByCategory(Long id);
 
     List<Contact> getContactByKeyword(String keyword);
+
+    void deleteContact(Long id);
 }

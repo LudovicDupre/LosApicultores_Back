@@ -54,4 +54,9 @@ public class ImplBusiness implements IBusiness {
     public List<Contact> getContactByKeyword(String keyword) {
         return contactRepository.findBylastNameContains(keyword);
     }
+
+    @Override
+    public void deleteContact(Long id) { contactRepository.deleteById(id);
+
+    }
 }

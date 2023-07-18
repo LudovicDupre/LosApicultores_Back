@@ -18,13 +18,15 @@ import java.util.stream.Collectors;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/api")
+//@RequestMapping("/api")
 public class AccountRestController {
      @Autowired
     AccountServiceImpl accountService;
+
      @GetMapping("/users")
     ResponseEntity<List<AppUser>> getUsers() { return this.accountService.listUsers(); }
-     @PostMapping("/users")
+
+    @PostMapping("/users")
     public AppUser postUser(@RequestBody AppUser user) {
          AppUser user1 = this.accountService.saveUser(user);
          accountService.addRoleToUser(user1.getUsername(), "User");

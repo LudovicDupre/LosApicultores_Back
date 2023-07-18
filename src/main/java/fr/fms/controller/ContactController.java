@@ -13,9 +13,9 @@ import java.net.URI;
 import java.util.List;
 import java.util.Objects;
 
-@RestController
 @CrossOrigin("*")
-@RequestMapping("/api")
+@RestController
+//@RequestMapping("/api")
 @Slf4j
 public class ContactController {
 
@@ -34,6 +34,11 @@ public class ContactController {
         return implIBusiness.getContactByCategory(id);
     }
 
+    @DeleteMapping("/contacts/{id}")
+    public void deleteById(@PathVariable Long id) {
+        System.out.println("------------------->" +id);
+        implIBusiness.deleteContact(id);
+    }
 
     @GetMapping("/contacts/search/{keyword}")
     public List<Contact> searchByKeyword(@PathVariable String keyword) {

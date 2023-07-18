@@ -72,6 +72,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests().antMatchers(HttpMethod.POST, "/login").permitAll();
         http.authorizeRequests().antMatchers(HttpMethod.GET, "api/contacts/**").authenticated();
+        http.authorizeRequests().antMatchers(HttpMethod.DELETE, "api/contacts/**").authenticated();
         http.formLogin();
         http.cors();
         http.addFilter(new JwtAuthenticationFilter(authenticationManagerBean()));

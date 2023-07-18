@@ -5,9 +5,13 @@ import fr.fms.service.ImplBusiness;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @CrossOrigin("*")
@@ -41,5 +45,15 @@ public class ContactController {
         return null;
     }
 
+    @PostMapping("/addContact")
+    public ResponseEntity<Contact> saveContact(@RequestBody Contact contact){
+        Contact con = implIBusiness.saveContact(contact);
+        if(Objects.isNull(contact)){
+            return ResponseEntity.noContent().build();
+        }
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(contact.getId()).toUri();
+        return ResponseEntity.created(location).build();
+
+    }
 
 }

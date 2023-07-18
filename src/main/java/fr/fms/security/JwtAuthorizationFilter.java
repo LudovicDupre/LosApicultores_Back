@@ -30,8 +30,8 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
         String token = request.getHeader(SecurityConstants.HEADER_STRING);
 
         //permet les accès de domaines différent du back
-       /* if (response.getHeader("Access-Control-Allow-Origin").isEmpty())
-        response.addHeader("Access-Control-Allow-Origin", "*");*/
+       /* if (response.getHeader("Access-Control-Allow-Origin").isEmpty())*/
+        response.addHeader("Access-Control-Allow-Origin", "http://localhost:4200");
 
         //Tous les headers autorisés
         response.addHeader("Access-Control-Allow-Headers",
@@ -42,7 +42,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
         response.addHeader("Access-Control-Expose-Headers",
                 "Access-Control-Allow-Origin, Access-Control-Allow-Credentials, Authorization");
 
-        //response.addHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS,DELETE,PUT");
+        response.addHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS,DELETE,PUT");
 
         if (token != null && token.startsWith(SecurityConstants.TOKEN_PREFIX)) {
             try {

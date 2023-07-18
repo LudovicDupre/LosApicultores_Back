@@ -42,7 +42,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .withIssuer(request.getRequestURL().toString())
                 .withClaim("roles", springUser.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
                 .sign(Algorithm.HMAC256(SecurityConstants.SECRET));
-                System.out.println("test : " + springUser);
                 response.setHeader(SecurityConstants.HEADER_STRING, SecurityConstants.TOKEN_PREFIX + jwtToken);
                 System.out.println("test : " + response.getHeader(SecurityConstants.HEADER_STRING));
     }

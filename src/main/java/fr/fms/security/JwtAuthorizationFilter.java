@@ -24,9 +24,21 @@ import java.util.Collection;
 public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
 
-
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+
+        //permet les accès de domaines différent du back
+        //response.addHeader("Access-Control-Allow-Origin", "*");
+        //Tous les headers autorisés
+        response.addHeader("Access-Control-Allow-Headers",
+                "Origin, Accept, X-Requested-With, Content-Type, " +
+                        "Access-Control-Request-Method, Access-Control-Request-Headers, Authorization");
+        //Tous les headers exposés donc visible côté front
+        response.addHeader("Access-Control-Expose-Headers",
+                "Access-Control-Allow-Origin, Access-Control-Allow-Credentials, Authorization");
+        response.addHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS,DELETE,PUT");
+
+
         String token = request.getHeader(SecurityConstants.HEADER_STRING);
 
         //permet les accès de domaines différent du back

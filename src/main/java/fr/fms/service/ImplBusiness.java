@@ -56,7 +56,12 @@ public class ImplBusiness implements IBusiness {
     }
 
     @Override
-    public void deleteContact(Long id) { contactRepository.deleteById(id);
+    public void deleteContact(Long id) {
+        contactRepository.deleteById(id);
+
+    }
+    public Contact saveContact(Contact contact) {
+        return contactRepository.save(contact);
 
     }
 }

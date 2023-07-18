@@ -15,7 +15,7 @@ import java.util.Objects;
 
 @CrossOrigin("*")
 @RestController
-//@RequestMapping("/api")
+@RequestMapping("/api")
 @Slf4j
 public class ContactController {
 

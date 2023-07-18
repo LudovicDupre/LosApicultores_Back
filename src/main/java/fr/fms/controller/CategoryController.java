@@ -19,7 +19,7 @@ import java.util.Optional;
 
 @CrossOrigin("*")
 @RestController
-//@RequestMapping("/api")
+@RequestMapping("/api")
 public class CategoryController {
 
     @Autowired

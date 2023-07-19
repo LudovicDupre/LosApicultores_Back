@@ -70,10 +70,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
 
-        http.authorizeRequests().antMatchers(HttpMethod.POST, "/login").permitAll();
-        http.authorizeRequests().antMatchers(HttpMethod.GET, "api/contacts/**","api/category/**").authenticated();
-        http.authorizeRequests().antMatchers(HttpMethod.DELETE, "api/contacts/**").authenticated();
-        http.formLogin();
+        http.authorizeRequests().antMatchers(HttpMethod.POST, "/login", "/users").permitAll();
+//        http.authorizeRequests().antMatchers(HttpMethod.GET, "api/contacts/**","api/category/**", "api/contacts/category/**").authenticated();
+//        http.authorizeRequests().antMatchers(HttpMethod.DELETE, "api/contacts/**").authenticated();
+        http.authorizeRequests().anyRequest().authenticated();
+//        http.formLogin();
         // http.cors();
         http.addFilter(new JwtAuthenticationFilter(authenticationManagerBean()));
         http.csrf().disable();

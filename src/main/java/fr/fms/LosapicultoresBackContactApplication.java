@@ -104,13 +104,13 @@ public class LosapicultoresBackContactApplication implements CommandLineRunner {
         contactRepository.save(new Contact(null, "Bell", "Oliver", "oliver.bell@example.com", "80 Elm Avenue", "0687654321", FOLDER, travail));
     }
    // @Bean
-    public WebMvcConfigurer corsConfigurer() {
+  /*  public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**").allowedOrigins("http://localhost:4200");
             }
         };
-    }
+    }*/
 
 }

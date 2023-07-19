@@ -61,4 +61,15 @@ public class ContactController {
 
     }
 
+    @PostMapping("/contacts")
+    public ResponseEntity<Contact> updateContact(@RequestBody Contact contact) {
+        Contact con = implIBusiness.saveContact(contact);
+        if(Objects.isNull(con)) { return ResponseEntity.noContent().build(); }
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(contact.getId())
+                .toUri();
+        return ResponseEntity.created(location).build();
+    }
 }

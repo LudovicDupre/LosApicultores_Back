@@ -2,6 +2,7 @@ package fr.fms.service;
 
 import fr.fms.entities.Category;
 import fr.fms.entities.Contact;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 import java.util.Optional;
@@ -28,4 +29,6 @@ public interface IBusiness {
     void deleteContact(Long id);
 
     Contact saveContact(Contact contact);
+
+//    public ResponseEntity<Contact> modifyContact(Contact contact, Long id);
 }

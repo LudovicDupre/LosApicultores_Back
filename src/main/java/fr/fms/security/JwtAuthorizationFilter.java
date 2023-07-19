@@ -30,8 +30,8 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
         String token = request.getHeader(SecurityConstants.HEADER_STRING);
 
         //permet les accès de domaines différent du back
-       /* if (response.getHeader("Access-Control-Allow-Origin").isEmpty())*/
-        response.addHeader("Access-Control-Allow-Origin", "http://localhost:4200");
+        /* if (response.getHeader("Access-Control-Allow-Origin").isEmpty())*/
+        response.addHeader("Access-Control-Allow-Origin", "*");
 
         //Tous les headers autorisés
         response.addHeader("Access-Control-Allow-Headers",
@@ -43,8 +43,13 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
                 "Access-Control-Allow-Origin, Access-Control-Allow-Credentials, Authorization");
 
         response.addHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS,DELETE,PUT");
+        //response.setStatus(HttpServletResponse.SC_OK);
 
-        if (token != null && token.startsWith(SecurityConstants.TOKEN_PREFIX)) {
+       /*if (request.getMethod().equals("OPTIONS")) {  //si la requete contient une OPTION renvoyer OK -- côté front : Authorization
+            response.setStatus(HttpServletResponse.SC_OK);  //Status code (200) indicating the request succeeded normally
+            System.out.println(response.getStatus());
+        } else*/
+            if (token != null && token.startsWith(SecurityConstants.TOKEN_PREFIX)) {
             try {
                 String jwtToken = token.substring(7);
                 JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(SecurityConstants.SECRET)).build();

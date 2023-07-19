@@ -20,28 +20,34 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api")
 public class AccountRestController {
-     @Autowired
+    @Autowired
     AccountServiceImpl accountService;
 
-     @GetMapping("/users")
-    ResponseEntity<List<AppUser>> getUsers() { return this.accountService.listUsers(); }
+    @GetMapping("/users")
+    ResponseEntity<List<AppUser>> getUsers() {
+        return this.accountService.listUsers();
+    }
 
     @PostMapping("/users")
     public AppUser postUser(@RequestBody AppUser user) {
-         AppUser user1 = this.accountService.saveUser(user);
-         accountService.addRoleToUser(user1.getUsername(), "User");
-         return user1;
-     }
+        AppUser user1 = this.accountService.saveUser(user);
+        accountService.addRoleToUser(user1.getUsername(), "User");
+        return user1;
+    }
 
 
     @PostMapping("/role")
-    public AppRole postRole(@RequestBody AppRole role) { return this.accountService.saveRole(role); }
+    public AppRole postRole(@RequestBody AppRole role) {
+        return this.accountService.saveRole(role);
+    }
+
     @PostMapping("/roleUser")
     public void postRoleToUser(@RequestBody UserRoleForm userRoleForm) {
-         accountService.addRoleToUser(userRoleForm.getUsername(), userRoleForm.getRolename());
+        accountService.addRoleToUser(userRoleForm.getUsername(), userRoleForm.getRolename());
     }
 
 }
+
 @Data
 class UserRoleForm {
     private String username;

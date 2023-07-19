@@ -5,11 +5,13 @@ import fr.fms.service.ImplBusiness;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -24,8 +26,10 @@ public class ContactController {
 
 
     @GetMapping("/contacts")
-    public List<Contact> allTrainings() {
-        return implIBusiness.getContacts();
+    public ResponseEntity<List<Contact>> allContacts() {
+        System.out.println("test passage");
+        List<Contact> contacts = implIBusiness.getContacts();
+        return new ResponseEntity<List<Contact>>(contacts, HttpStatus.OK);
     }
 
 
@@ -36,7 +40,7 @@ public class ContactController {
 
     @DeleteMapping("/contacts/{id}")
     public void deleteById(@PathVariable Long id) {
-        System.out.println("------------------->" +id);
+        System.out.println("------------------->" + id);
         implIBusiness.deleteContact(id);
     }
 
@@ -51,9 +55,9 @@ public class ContactController {
     }
 
     @PostMapping("/addContact")
-    public ResponseEntity<Contact> saveContact(@RequestBody Contact contact){
+    public ResponseEntity<Contact> saveContact(@RequestBody Contact contact) {
         Contact con = implIBusiness.saveContact(contact);
-        if(Objects.isNull(contact)){
+        if (Objects.isNull(contact)) {
             return ResponseEntity.noContent().build();
         }
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(contact.getId()).toUri();

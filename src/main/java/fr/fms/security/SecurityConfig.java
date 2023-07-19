@@ -74,8 +74,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //        http.authorizeRequests().antMatchers(HttpMethod.GET, "api/contacts/**","api/category/**", "api/contacts/category/**").authenticated();
 //        http.authorizeRequests().antMatchers(HttpMethod.DELETE, "api/contacts/**").authenticated();
         http.authorizeRequests().anyRequest().authenticated();
-//        http.formLogin();
-        // http.cors();
+        //http.formLogin();
+        http.cors().disable();
         http.addFilter(new JwtAuthenticationFilter(authenticationManagerBean()));
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
@@ -90,9 +90,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     //@Bean
-    CorsConfigurationSource corsConfigurationSource() {
+  /*  CorsConfigurationSource corsConfigurationSource() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
         return source;
-    }
+    }*/
 }

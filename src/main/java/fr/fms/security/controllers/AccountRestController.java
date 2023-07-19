@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 
 @CrossOrigin("*")
 @RestController
-//@RequestMapping("/api")
+@RequestMapping("/api")
 public class AccountRestController {
      @Autowired
     AccountServiceImpl accountService;

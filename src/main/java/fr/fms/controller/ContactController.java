@@ -53,10 +53,11 @@ public class ContactController {
     @PostMapping("/addContact")
     public ResponseEntity<Contact> saveContact(@RequestBody Contact contact){
         Contact con = implIBusiness.saveContact(contact);
-        if(Objects.isNull(contact)){
+        System.out.println(con);
+        if(Objects.isNull(con)){
             return ResponseEntity.noContent().build();
         }
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(contact.getId()).toUri();
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(con.getId()).toUri();
         return ResponseEntity.created(location).build();
 
     }

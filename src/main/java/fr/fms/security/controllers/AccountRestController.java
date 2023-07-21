@@ -23,11 +23,20 @@ public class AccountRestController {
     @Autowired
     AccountServiceImpl accountService;
 
+    /**
+     * méthode en GET permetta  nt de ré&cupérer une liste d'utilisateurs
+     * @return renvoie une liste d'utilisateurs
+     */
     @GetMapping("/users")
     ResponseEntity<List<AppUser>> getUsers() {
         return this.accountService.listUsers();
     }
 
+    /**
+     * méthoe en POST permettant d'assigner le rôle "user" à un utilisateur
+     * @param user l'utilisateur auquel doit être assigné le rôle
+     * @return renvoie l'utilisateur
+     */
     @PostMapping("/users")
     public AppUser postUser(@RequestBody AppUser user) {
         AppUser user1 = this.accountService.saveUser(user);
@@ -36,11 +45,20 @@ public class AccountRestController {
     }
 
 
+    /**
+     * méthode en POST permettant de sauvegarder un rôle
+     * @param role le rôle à sauvegarder
+     * @return renvoie la sauvegarde du rôle
+     */
     @PostMapping("/role")
     public AppRole postRole(@RequestBody AppRole role) {
         return this.accountService.saveRole(role);
     }
 
+    /**
+     * méthode en POST permettant d'ajouter un rôle à un utilisateur dans la table assossiative
+     * @param userRoleForm l'association de l'utilisateur et de son rôle en base de données
+     */
     @PostMapping("/roleUser")
     public void postRoleToUser(@RequestBody UserRoleForm userRoleForm) {
         accountService.addRoleToUser(userRoleForm.getUsername(), userRoleForm.getRolename());

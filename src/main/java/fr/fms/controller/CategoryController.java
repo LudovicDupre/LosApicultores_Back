@@ -25,9 +25,18 @@ public class CategoryController {
     @Autowired
     private ImplBusiness implBusiness;
 
+    /**
+     * Méthode en GET récupérant toutes les catégories en BDD
+     * @return une liste de catégories
+     */
     @GetMapping("/category")
     public List<Category> allCategories() {return implBusiness.getCategories();}
 
+    /**
+     * méthode qui permet de renvoyer sur une page selon un id de category.
+     * @param cat
+     * @return
+     */
     @PostMapping("/category")
     public ResponseEntity<Category> saveCategory(@RequestBody Category cat) {
         Category category = implBusiness.saveCategory(cat);
@@ -40,6 +49,10 @@ public class CategoryController {
         return ResponseEntity.created(location).build();
     }
 
+    /**
+     * méthode DELETE permettant de supprimer une catégory
+     * @param id l'identifiant de la catégorie à supprimer
+     */
     @DeleteMapping("/category/{id}")
     public void deleteCategory(@PathVariable("id") Long id) { implBusiness.deleteCategory(id);  }
 

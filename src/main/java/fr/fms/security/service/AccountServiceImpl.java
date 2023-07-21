@@ -23,6 +23,11 @@ public class AccountServiceImpl implements AccountService {
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    /**
+     * méthode permettant de suavegarder un nouvel utilisateur
+     * @param user l'utilisateur à enregistrer
+     * @return renvoie la méthode saveUser avec l'objet utilisateuer à sauvegarder
+     */
     @Override
     public AppUser saveUser(AppUser user) {
         String hasPW = bCryptPasswordEncoder.encode(user.getPassword());
@@ -32,12 +37,22 @@ public class AccountServiceImpl implements AccountService {
         return appUserRepository.save(user);
     }
 
+    /**
+     * méthode permettant de sauvegarder un rôle
+     * @param role le rôle à sauvegarder
+     * @return
+     */
     @Override
     public AppRole saveRole(AppRole role) {
         log.info("Sauvegarde d'un rôle en base");
         return appRoleRepository.save(role);
     }
 
+    /**
+     * méthode permettant d'ajouter un rôle à un utilisateur
+     * @param username le nom de l'utilisateur
+     * @param rolename le rôle à assigner
+     */
     @Override
     public void addRoleToUser(String username, String rolename) {
         AppRole role = appRoleRepository.findByRolename(rolename);
@@ -47,16 +62,29 @@ public class AccountServiceImpl implements AccountService {
 
     }
 
+    /**
+     * méthode permettant de récupérer un utilisateur par son nom
+     * @param username le nom de l'utilisateur
+     * @return
+     */
     @Override
     public AppUser findUserByUsername(String username) {
         return appUserRepository.findByUsername(username);
     }
 
+    /**
+     * méthode permettant de récupérer la liste des utilisateurs
+     * @return la liste des utilisatreurs.
+     */
     @Override
     public ResponseEntity<List<AppUser>> listUsers() {
         return ResponseEntity.ok().body(appUserRepository.findAll());
     }
 
+    /**
+     * méthode permettant de récupérer une liste de rôles
+     * @return la liste des rôles récupérés.
+     */
     @Override
     public Collection<AppRole> getAllRoles() {
         return appRoleRepository.findAll();

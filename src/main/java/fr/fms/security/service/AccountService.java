@@ -15,5 +15,9 @@ public interface AccountService {
     public AppUser findUserByUsername(String username);
     ResponseEntity<List<AppUser>> listUsers();
 
+    /**
+     * méthode permettant de récupérer une liste de rôles
+     * @return renvoie une liste des rôles
+     */
     Collection<AppRole> getAllRoles();
 }

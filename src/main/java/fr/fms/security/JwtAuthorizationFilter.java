@@ -31,7 +31,6 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
         response.addHeader("Access-Control-Allow-Headers", "Origin, Accept, X-Requested-With, Content-Type, " + "Access-Control-Request-Method, Access-Control-Request-Headers, Authorization");
         response.addHeader("Access-Control-Expose-Headers", "Access-Control-Allow-Origin, Access-Control-Allow-Credentials, Authorization"); response.addHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS,DELETE,PUT");
         String token = request.getHeader(SecurityConstants.HEADER_STRING);
-        System.out.println(token);
 
         //response.setStatus(HttpServletResponse.SC_OK);
 
@@ -42,7 +41,6 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
             if (token != null && token.startsWith(SecurityConstants.TOKEN_PREFIX)) {
             try {
                 String jwtToken = token.substring(7);
-                System.out.println(jwtToken);
                 JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(SecurityConstants.SECRET)).build();
                 DecodedJWT decodedJWT = jwtVerifier.verify(jwtToken);
 
@@ -50,6 +48,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
                 String roles[] = decodedJWT.getClaim("roles").asArray(String.class);
                 Collection<GrantedAuthority> authorities = new ArrayList<>();
                 for (String role : roles) authorities.add(new SimpleGrantedAuthority(role));
+                System.out.println(authorities);
                 UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, null, authorities);
                 System.out.println(authenticationToken);
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);

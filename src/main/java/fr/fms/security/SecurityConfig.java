@@ -88,7 +88,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/contacts/**","/api/category/**", "/api/contacts/category/**").hasAuthority("User");
        http.authorizeRequests().antMatchers(HttpMethod.DELETE,"/api/contacts/{id}").hasAuthority("User");
        http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/contacts/**").hasAuthority("User");
-       http.authorizeRequests().anyRequest().authenticated();
+    //   http.authorizeRequests().anyRequest().authenticated();
         //http.formLogin();
         http.cors();
         http.csrf().disable();

@@ -59,8 +59,8 @@ public class LosapicultoresBackContactApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        generateDatas();
-        generatedUserRoles();
+       // generateDatas();
+        //generatedUserRoles();
 
     }
 

@@ -27,6 +27,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -39,7 +41,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     UserDetailsService userDetailsService;
     @Autowired
     AccountServiceImpl accountServiceImpl;
-
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**").allowedOrigins("http://localhost:4200");
+            }
+        };
+    }
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(new UserDetailsService() {
@@ -68,26 +83,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
-
         http.authorizeRequests().antMatchers(HttpMethod.POST, "/login", "/users").permitAll();
-//        http.authorizeRequests().antMatchers(HttpMethod.GET, "api/contacts/**","api/category/**", "api/contacts/category/**").authenticated();
-//        http.authorizeRequests().antMatchers(HttpMethod.DELETE, "api/contacts/**").authenticated();
-        http.authorizeRequests().anyRequest().authenticated();
+        http.authorizeRequests().antMatchers(HttpMethod.GET, "api/contacts/**","api/category/**", "api/contacts/category/**").hasAuthority("User");
+       http.authorizeRequests().antMatchers(HttpMethod.DELETE,"api/contacts/{id}").hasAuthority("User");
+       http.authorizeRequests().antMatchers(HttpMethod.POST, "api/contacts/**").hasAuthority("User");
+       http.authorizeRequests().anyRequest().authenticated();
         //http.formLogin();
-        http.cors().disable();
-        http.addFilter(new JwtAuthenticationFilter(authenticationManagerBean()));
+        http.cors();
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.addFilter((new JwtAuthenticationFilter(authenticationManagerBean())));
         http.addFilterBefore(new JwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
-    @Bean
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
+
 
     //@Bean
   /*  CorsConfigurationSource corsConfigurationSource() {

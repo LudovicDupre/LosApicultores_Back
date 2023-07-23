@@ -14,7 +14,8 @@ import javax.transaction.Transactional;
 import java.util.Collection;
 import java.util.List;
 
-@Service @Transactional @Slf4j
+@Service
+@Transactional @Slf4j
 public class AccountServiceImpl implements AccountService {
     @Autowired
     private AppUserRepository appUserRepository;

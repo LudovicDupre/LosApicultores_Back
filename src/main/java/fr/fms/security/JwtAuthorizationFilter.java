@@ -26,23 +26,13 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-
-        String token = request.getHeader(SecurityConstants.HEADER_STRING);
-
         //permet les accès de domaines différent du back
         /* if (response.getHeader("Access-Control-Allow-Origin").isEmpty())*/
-        response.addHeader("Access-Control-Allow-Origin", "*");
+        response.addHeader("Access-Control-Allow-Headers", "Origin, Accept, X-Requested-With, Content-Type, " + "Access-Control-Request-Method, Access-Control-Request-Headers, Authorization");
+        response.addHeader("Access-Control-Expose-Headers", "Access-Control-Allow-Origin, Access-Control-Allow-Credentials, Authorization"); response.addHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS,DELETE,PUT");
+        String token = request.getHeader(SecurityConstants.HEADER_STRING);
+        System.out.println(token);
 
-        //Tous les headers autorisés
-        response.addHeader("Access-Control-Allow-Headers",
-                "Origin, Accept, X-Requested-With, Content-Type, " +
-                        "Access-Control-Request-Method, Access-Control-Request-Headers, Authorization");
-
-        //Tous les headers exposés donc visible côté front
-        response.addHeader("Access-Control-Expose-Headers",
-                "Access-Control-Allow-Origin, Access-Control-Allow-Credentials, Authorization");
-
-        response.addHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS,DELETE,PUT");
         //response.setStatus(HttpServletResponse.SC_OK);
 
        /*if (request.getMethod().equals("OPTIONS")) {  //si la requete contient une OPTION renvoyer OK -- côté front : Authorization
@@ -52,6 +42,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
             if (token != null && token.startsWith(SecurityConstants.TOKEN_PREFIX)) {
             try {
                 String jwtToken = token.substring(7);
+                System.out.println(jwtToken);
                 JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(SecurityConstants.SECRET)).build();
                 DecodedJWT decodedJWT = jwtVerifier.verify(jwtToken);
 
@@ -59,9 +50,10 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
                 String roles[] = decodedJWT.getClaim("roles").asArray(String.class);
                 Collection<GrantedAuthority> authorities = new ArrayList<>();
                 for (String role : roles) authorities.add(new SimpleGrantedAuthority(role));
-
                 UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, null, authorities);
+                System.out.println(authenticationToken);
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+
             } catch (Exception e) {
                 response.setHeader(SecurityConstants.ERROR_MSG, e.getMessage());
                 response.sendError(HttpServletResponse.SC_FORBIDDEN);

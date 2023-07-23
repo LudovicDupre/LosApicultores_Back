@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -30,7 +29,6 @@ public class ContactController {
      */
     @GetMapping("/contacts")
     public ResponseEntity<List<Contact>> allContacts() {
-        System.out.println("test passage");
         List<Contact> contacts = implIBusiness.getContacts();
         return new ResponseEntity<List<Contact>>(contacts, HttpStatus.OK);
     }
@@ -75,7 +73,7 @@ public class ContactController {
      * @param contact l'Object utilisateur à enregistrer
      * @return renvoie vers la page
      */
-    @PostMapping("/addContact")
+    @PostMapping("/contacts/addContact")
     public ResponseEntity<Contact> saveContact(@RequestBody Contact contact) {
         Contact c = implIBusiness.saveContact(contact);
         if(Objects.isNull(c)){

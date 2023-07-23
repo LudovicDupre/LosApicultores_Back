@@ -3,37 +3,28 @@ package fr.fms;
 
 import fr.fms.security.entities.AppRole;
 import fr.fms.security.entities.AppUser;
-import fr.fms.security.service.AccountService;
 import fr.fms.security.service.AccountServiceImpl;
 
 import fr.fms.entities.Contact;
 import fr.fms.repositories.CategoryRepository;
 import fr.fms.repositories.ContactRepository;
 import fr.fms.entities.Category;
-import fr.fms.service.ImplBusiness;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 @SpringBootApplication
 public class LosapicultoresBackContactApplication implements CommandLineRunner {
-
-    @Autowired
-    AccountService accountService;
+   @Autowired
+    AccountServiceImpl accountServiceImpl;
 
     // folder images par default
     private static final String FOLDER = "C:\\Users\\MehdiouiM\\Desktop\\ImagesLosApiCultores\\Contact.jpg";
 
-    @Autowired
-    ImplBusiness implBusiness;
 
     @Autowired
     CategoryRepository categoryRepository;
@@ -48,35 +39,28 @@ public class LosapicultoresBackContactApplication implements CommandLineRunner {
 
     public void generatedUserRoles() {
 
-        accountService.saveUser(new AppUser(null, "aurore", "1234", new ArrayList<>()));
-        accountService.saveUser(new AppUser(null, "alex", "1234", new ArrayList<>()));
-        accountService.saveUser(new AppUser(null, "guillaume", "1234", new ArrayList<>()));
-        accountService.saveUser(new AppUser(null, "sam", "1234", new ArrayList<>()));
-        accountService.saveUser(new AppUser(null, "ayyoub", "1234", new ArrayList<>()));
-        accountService.saveUser(new AppUser(null, "ludo", "1234", new ArrayList<>()));
-        accountService.saveRole(new AppRole(null, "Admin"));
-        accountService.saveRole(new AppRole(null, "User"));
+        accountServiceImpl.saveUser(new AppUser(null, "aurore", "1234", new ArrayList<>()));
+        accountServiceImpl.saveUser(new AppUser(null, "alex", "1234", new ArrayList<>()));
+        accountServiceImpl.saveUser(new AppUser(null, "guillaume", "1234", new ArrayList<>()));
+        accountServiceImpl.saveUser(new AppUser(null, "sam", "1234", new ArrayList<>()));
+        accountServiceImpl.saveUser(new AppUser(null, "ayyoub", "1234", new ArrayList<>()));
+        accountServiceImpl.saveUser(new AppUser(null, "ludo", "1234", new ArrayList<>()));
+        accountServiceImpl.saveRole(new AppRole(null, "Admin"));
+        accountServiceImpl.saveRole(new AppRole(null, "User"));
 
-        accountService.addRoleToUser("aurore", "Admin");
-        accountService.addRoleToUser("alex", "User");
-        accountService.addRoleToUser("guillaume", "User");
-        accountService.addRoleToUser("sam", "User");
-        accountService.addRoleToUser("ayyoub", "Admin");
-        accountService.addRoleToUser("ludo", "User");
+        accountServiceImpl.addRoleToUser("aurore", "Admin");
+        accountServiceImpl.addRoleToUser("alex", "User");
+        accountServiceImpl.addRoleToUser("guillaume", "User");
+        accountServiceImpl.addRoleToUser("sam", "User");
+        accountServiceImpl.addRoleToUser("ayyoub", "Admin");
+        accountServiceImpl.addRoleToUser("ludo", "User");
 
     }
 
     @Override
     public void run(String... args) throws Exception {
-        //generateDatas();
-        //implBusiness.saveCategory(new Category(null, "famille"));
-        // implBusiness.saveCategory(new Category(null, "ami"));
-        //implBusiness.saveCategory(new Category(null, "travail"));
-        //implBusiness.saveCategory(new Category(null, "urgence"));
-        //implBusiness.saveCategory(new Category(null, "default"));
-        //generateDatas();
-
-        //generatedUserRoles();
+        generateDatas();
+        generatedUserRoles();
 
     }
 
@@ -103,14 +87,5 @@ public class LosapicultoresBackContactApplication implements CommandLineRunner {
         contactRepository.save(new Contact(null, "Robinson", "Emma", "emma.robinson@example.com", "70 Oak Drive", "0234567890", FOLDER, travail));
         contactRepository.save(new Contact(null, "Bell", "Oliver", "oliver.bell@example.com", "80 Elm Avenue", "0687654321", FOLDER, travail));
     }
-   // @Bean
-  /*  public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurer() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**").allowedOrigins("http://localhost:4200");
-            }
-        };
-    }*/
 
 }
